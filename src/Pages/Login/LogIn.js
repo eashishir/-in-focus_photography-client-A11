@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import img from '../../assets/login.jpg'
+import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
 
 const LogIn = () => {
+    const {LogIn} = useContext(AuthContext);
+    const [passwordError, setPasswordError] = useState('');
 
     const handleLogin = event => {
         event.preventDefault()
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        // login(email,password)
-        // .then(result => {
-        //    const user = result.user;
-        //    console.log(user)
 
-        // })
-        // .catch(error => console.error(error))
+        LogIn(email,password)
+        .then(result => {
+           const user = result.user;
+           form.reset();
+           console.log(user)
+
+        })
+    .catch(error => {
+        console.error(error);
+        setPasswordError(error.message);
+    })
     }
     return (
         <div className="hero w-full my-20 bg-info text-black">
             <div className="hero-content gap-10 grid md:grid-cols-2 flex-col lg:flex-row">
                 <div className="text-center lg:text-left">
-                    <img className='w-2/3' src={img} alt='' />
+                    <img className='w-2/3 rounded' src={img} alt='' />
 
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-20">
@@ -41,6 +49,7 @@ const LogIn = () => {
                             <input type="password" name='password' placeholder="password" className="input input-bordered" />
 
                         </div>
+                        <p className='text-center font-bold text-red-600'>{passwordError}</p>
                         <div className="form-control mt-6">
                             <input className='btn btn-primary' type='submit' value='Login' />
 

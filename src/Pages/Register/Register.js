@@ -1,24 +1,51 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import img from '../../assets/user.png'
+import gIcon from '../../assets/google.jpg'
+import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
+
+
 
 const Register = () => {
+    const { createUser, googleProviderLogin } = useContext(AuthContext);
+    const [passwordError, setPasswordError] = useState('');
+
+    const googleProvider = new GoogleAuthProvider();
 
     const handleSignUp = event => {
         event.preventDefault();
         const form = event.target;
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
+        console.log(name, email, password)
 
-        // createUser(email,password)
-        // .then(result => {
-        //     const user = result.user
-        //     console.log(user);
-        // })
-        // .catch(error => console.error(error))
+        createUser(email, password, name)
+            .then(result => {
+                const user = result.user;
+                form.reset();
+                console.log(user);
+            })
+            .catch(error => {
+                console.error(error);
+
+                setPasswordError(error.message)
+            });
 
 
-    }
+    };
+
+    const googleHandleSignIn = () => {
+        googleProviderLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+
+            })
+            .catch(error => console.error(error))
+
+    };
 
     return (
         <div className="hero w-full my-20 bg-green-600 text-black ">
@@ -28,7 +55,7 @@ const Register = () => {
 
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl  bg-base-100 py-20">
-                    <h1 className="text-5xl text-white text-center font-bold">Register</h1>
+                    <h1 className="text-5xl text-orange-600 text-center font-bold">Register</h1>
                     <form onSubmit={handleSignUp} className="card-body">
                         <div className="form-control">
                             <label className="label">
@@ -53,10 +80,23 @@ const Register = () => {
                             <input className='btn btn-primary' type='submit' value='Sign UP' />
 
                         </div>
+                        <p className='text-center font-bold text-red-600'>{passwordError}</p>
                     </form>
-                    <p className='text-center font-bold text-green-600'>Already have an account ? <Link className='text-orange-600 font-bold' to='/login'>Login</Link></p>
+
+                    <p className='text-center font-bold text-green-600 p-2'>Already have an account ? <Link className='text-orange-600 font-bold' to='/login'>Login</Link></p>
+                    <hr />
+
+                    <p className='text-center font-bold text-red-600'> Or Register with</p>
+                    <div className="w-16 rounded-full mx-10">
+
+                        <button onClick={googleHandleSignIn } ><img className='rounded-full' src={gIcon} alt='' /></button>
+                    </div>
+                    
+                    
+
                 </div>
             </div>
+            
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../assets/user.png'
 import gIcon from '../../assets/google.jpg'
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
@@ -10,6 +10,10 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const Register = () => {
     const { createUser, googleProviderLogin } = useContext(AuthContext);
     const [passwordError, setPasswordError] = useState('');
+    const navigate = useNavigate();
+    const location =useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -26,6 +30,7 @@ const Register = () => {
                 const user = result.user;
                 form.reset();
                 console.log(user);
+                navigate(from, {replace:true});
             })
             .catch(error => {
                 console.error(error);
@@ -41,6 +46,7 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate(from, {replace:true});
 
             })
             .catch(error => console.error(error))
@@ -51,7 +57,7 @@ const Register = () => {
         <div className="hero w-full my-20 bg-green-600 text-black ">
             <div className="hero-content gap-5 grid md:grid-cols-2 flex-col lg:flex-row">
                 <div className="text-center lg:text-left">
-                    <img className='w-2/3' src={img} alt='' />
+                    <img className='w-2/3 rounded' src={img} alt='' />
 
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl  bg-base-100 py-20">
@@ -86,7 +92,7 @@ const Register = () => {
                     <p className='text-center font-bold text-green-600 p-2'>Already have an account ? <Link className='text-orange-600 font-bold' to='/login'>Login</Link></p>
                     <hr />
 
-                    <p className='text-center font-bold text-red-600'> Or Register with</p>
+                    <p className='text-center font-bold text-orange-600 p-2'> Or Register With Google</p>
                     <div className="w-16 rounded-full mx-10">
 
                         <button onClick={googleHandleSignIn } ><img className='rounded-full' src={gIcon} alt='' /></button>

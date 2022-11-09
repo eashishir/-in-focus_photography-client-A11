@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import img from '../../../../../assets/logo.png'
-import userImg from '../../../../../assets/user.png'
+import userImg from '../../../../../assets/user.jpg'
 import { AuthContext } from '../../../../../Context/AuthProvider.js/AuthProvider';
 
 const Header = () => {
@@ -46,7 +46,8 @@ const Header = () => {
             <button onClick={LogOut} className="btn btn-outline btn-error">Log Out</button>
             :
             <>
-              <button className="btn btn-outline btn-success"><Link className='font-semibold' to='/login'>Login</Link> </button>
+            <Link className='font-semibold' to='/login'><button className="btn btn-outline btn-success">Login </button></Link>
+              
 
             </>
 

@@ -8,7 +8,7 @@ const Header = () => {
   const { user, LogOut } = useContext(AuthContext);
   const menuItems = <>
     <li><Link className='font-semibold' to='/'>Home</Link></li>
-    <li><Link className='font-semibold' to='/'>Blog</Link></li>
+    <li><Link className='font-semibold' to='/blog'>Blog</Link></li>
     <li><Link className='font-semibold' to='/register'>Register</Link></li>
 
 

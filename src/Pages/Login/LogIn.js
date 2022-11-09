@@ -39,9 +39,9 @@ const LogIn = () => {
                     <img className='w-2/3 rounded' src={img} alt='' />
 
                 </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-20">
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 shadow-xl py-20">
                     <h1 className="text-5xl text-orange-600 text-center font-bold">Login</h1>
-                    <form onSubmit={handleLogin} className="card-body">
+                    <form onSubmit={handleLogin} className="card-body ">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>

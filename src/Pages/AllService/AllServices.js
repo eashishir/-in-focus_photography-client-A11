@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 import AllServicesCard from './AllServicesCard';
 
 const AllServices = () => {
     const [allServices, setAllServices] = useState([]);
+    useTitle('All Services')
 
     useEffect(() => {
         fetch('https://my-assignment-11-server-olive.vercel.app/services')

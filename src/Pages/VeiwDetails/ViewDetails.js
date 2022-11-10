@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState  } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import userImg from '../../assets/user.jpg'
 import PersonReview from './PersonReview';
+import useTitle from '../../hooks/useTitle'
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
 
 const ViewDetails = () => {
   const { user } = useContext(AuthContext);
   const { _id, services, image_url, details, price, rating } = useLoaderData();
   const [reviews, setReviews] = useState([]);
+  useTitle('service Details');
 
 
   useEffect(() => {

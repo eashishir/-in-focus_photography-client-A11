@@ -4,6 +4,7 @@ import img from '../../assets/user.jpg'
 import gIcon from '../../assets/google.jpg'
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useTitle from '../../hooks/useTitle';
 
 
 
@@ -12,6 +13,7 @@ const Register = () => {
     const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate();
     const location =useLocation();
+    useTitle('Register');
 
     const from = location.state?.from?.pathname || '/';
 

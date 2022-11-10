@@ -29,7 +29,7 @@ const ViewDetails = () => {
     const message = form.message.value;
 
 
-    const order = {
+    const addReview = {
       service: _id,
       serviceName: services,
       userImg: user.photoURL,
@@ -59,13 +59,13 @@ const ViewDetails = () => {
         'content-type': 'application/json'
 
       },
-      body: JSON.stringify(order)
+      body: JSON.stringify(addReview)
     })
       .then(res => res.json())
       .then(data => {
         console.log(data)
         if (data.acknowledged) {
-          alert('Order placed successfully')
+          alert('review added successfully')
           form.reset();
         }
       })

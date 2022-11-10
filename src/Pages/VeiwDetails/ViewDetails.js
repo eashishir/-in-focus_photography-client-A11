@@ -4,6 +4,7 @@ import userImg from '../../assets/user.jpg'
 import PersonReview from './PersonReview';
 import useTitle from '../../hooks/useTitle'
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
+import swal from 'sweetalert';
 
 const ViewDetails = () => {
   const { user } = useContext(AuthContext);
@@ -65,7 +66,7 @@ const ViewDetails = () => {
       .then(data => {
         console.log(data)
         if (data.acknowledged) {
-          alert('review added successfully')
+          swal("Good job!", "Added to the review!", "success");
           form.reset();
         }
       })

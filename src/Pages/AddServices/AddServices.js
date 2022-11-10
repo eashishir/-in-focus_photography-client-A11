@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
+import swal from 'sweetalert';
 
 const AddServices = () => {
     const { user } = useContext(AuthContext);
@@ -44,7 +45,7 @@ const AddServices = () => {
         .then(data => {
             console.log(data)
             if(data.acknowledged){
-                alert('Review added successfully')
+                swal("Good job!", "Added your service!", "success");
                 form.reset();
             }
         })

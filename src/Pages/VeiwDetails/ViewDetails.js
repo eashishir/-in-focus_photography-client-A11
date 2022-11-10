@@ -21,7 +21,7 @@ const ViewDetails = () => {
 }, [user?.email]);
 
 
-  const handlePlaceOrder = event => {
+  const handleReview = event => {
     event.preventDefault();
     const form = event.target;
 
@@ -136,7 +136,7 @@ const ViewDetails = () => {
         <p className='text-3xl font-bold my-5 text-center text-orange-600 '>Review section</p>
         <p className='text-1xl font-bold my-5 text-center text-green-600 '>Please Review This</p>
 
-        <form onSubmit={handlePlaceOrder}>
+        <form onSubmit={handleReview}>
           <input name="email" type="text" placeholder="Your Email" defaultValue={user?.email} className="input input-bordered w-2/3 " readOnly />
 
 

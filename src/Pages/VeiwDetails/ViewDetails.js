@@ -11,7 +11,7 @@ const ViewDetails = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(`https://my-assignment-11-server-olive.vercel.app/reviews?email=${user?.email}`)
         .then(res => res.json())
         .then(data => setReviews(data))
 
@@ -51,7 +51,7 @@ const ViewDetails = () => {
 
 
 
-    fetch('http://localhost:5000/reviews', {
+    fetch('https://my-assignment-11-server-olive.vercel.app/reviews', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

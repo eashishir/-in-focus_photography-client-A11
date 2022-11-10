@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-const ReviewRow = ({ review ,handleDelete}) => {
-    const { _id,serviceName, price, message, userImg, service, email } = review;
+const ReviewRow = ({ review ,handleDelete,handleUpdate}) => {
+    const { _id,serviceName, price, message, userImg, service, email,status } = review;
     const [reviewService, setReviewService] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${service}`)
+        fetch(`https://my-assignment-11-server-olive.vercel.app/services/${service}`)
             .then(res => res.json())
             .then(data => setReviewService(data))
 
@@ -42,10 +42,13 @@ const ReviewRow = ({ review ,handleDelete}) => {
                 <br />
                 <span className="badge badge-ghost badge-sm">{serviceName}</span>
                 <div className="text-sm opacity-50">${price}</div>
+                <p>{message}</p>
             </td>
 
             <th>
-                <button className="btn btn-ghost btn-xs">{message}</button>
+              
+                <button
+                onClick={()=>handleUpdate(_id)} className="btn btn-ghost btn-xs">{status ? status : 'pending'}</button>
             </th>
         </tr>
     );

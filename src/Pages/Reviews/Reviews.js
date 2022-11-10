@@ -9,7 +9,7 @@ const Reviews = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+        fetch(`https://my-assignment-11-server-olive.vercel.app/reviews?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setReviews(data))
 
@@ -18,7 +18,7 @@ const Reviews = () => {
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure,you want to delete this review');
         if(proceed){
-            fetch(`http://localhost:5000/reviews/${id}`,{
+            fetch(`https://my-assignment-11-server-olive.vercel.app/reviews/${id}`,{
                 method:'DELETE'
             })
             .then(res => res.json())
@@ -31,6 +31,30 @@ const Reviews = () => {
                 }
             })
         }
+
+     }
+
+     const handleUpdate = id => {
+        fetch(`https://my-assignment-11-server-olive.vercel.app/reviews/${id}`, {
+            method:'PATCH',
+            headers: {
+                'content-type':'application/json'
+            },
+            body:JSON.stringify({status : 'Approved'})
+
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.modifiedCount > 0 ){
+                const remaining = reviews.filter(rev => rev._id !== id);
+                const approving = reviews.find(rev => rev._id == id);
+                approving.status= 'Approved'
+
+                const newReview = [approving,...remaining];
+                setReviews(newReview);
+            }
+        })
 
      }
 
@@ -49,8 +73,8 @@ const Reviews = () => {
                             </label>
                         </th>
                         <th>Email</th>
-                        <th>Services</th>
-                        <th>Reviews</th>
+                        <th>Services Reviews</th>
+                        <th>Update</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -60,6 +84,7 @@ const Reviews = () => {
                         key={review._id}
                         review={review}
                         handleDelete={handleDelete}
+                        handleUpdate = {handleUpdate}
                     
                     ></ReviewRow>)
                 }

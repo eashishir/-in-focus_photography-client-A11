@@ -44,7 +44,7 @@ const router = createBrowserRouter([
             {
                 path:'/details/:id',
                 element:<ViewDetails></ViewDetails>,
-                loader:({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader:({params}) => fetch(`https://my-assignment-11-server-olive.vercel.app/services/${params.id}`)
             },
         ],
         

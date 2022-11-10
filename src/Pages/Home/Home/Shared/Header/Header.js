@@ -10,6 +10,27 @@ const Header = () => {
     <li><Link className='font-semibold' to='/'>Home</Link></li>
     <li><Link className='font-semibold' to='/blog'>Blog</Link></li>
     <li><Link className='font-semibold' to='/register'>Register</Link></li>
+    {
+
+
+      user?.uid ?
+
+        <>
+          <li><Link className='font-semibold' to='/reviews'>My Review</Link></li>
+          <button onClick={LogOut} className="btn btn-outline btn-error ">Log Out</button>
+
+
+        </>
+
+        :
+        <>
+          <Link className='font-semibold' to='/login'><button className="btn btn-outline btn-success">Login </button></Link>
+
+
+        </>
+
+
+    }
 
 
 
@@ -38,26 +59,12 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        {
-
-
-          user?.uid ?
-
-            <button onClick={LogOut} className="btn btn-outline btn-error">Log Out</button>
-            :
-            <>
-            <Link className='font-semibold' to='/login'><button className="btn btn-outline btn-success">Login </button></Link>
-              
-
-            </>
-
-
-        }
 
 
 
 
-        {user?.photoURL?
+
+        {user?.photoURL ?
 
           <div className="w-16 rounded-full mx-10">
             <img className=' rounded-full' src={user.photoURL} alt='' />

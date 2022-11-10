@@ -60,7 +60,7 @@ const Register = () => {
                     <img className='w-2/3 rounded' src={img} alt='' />
 
                 </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl  bg-base-100 py-20">
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl  bg-base-100 ">
                     <h1 className="text-5xl text-orange-600 text-center font-bold">Register</h1>
                     <form onSubmit={handleSignUp} className="card-body">
                         <div className="form-control">

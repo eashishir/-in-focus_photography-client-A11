@@ -37,10 +37,13 @@ const AllServicesCard = ({ allService }) => {
 
                         </div>
                     </p>
+                    
 
-                    <Link to={`/checkout/${_id}`}> <button className="btn btn-outline btn-error">View details</button></Link>
+                    <Link to={`/details/${_id}`}> <button className="btn btn-outline btn-error">View details</button></Link>
                 </div>
+               
             </div>
+
         </div>
     );
 };

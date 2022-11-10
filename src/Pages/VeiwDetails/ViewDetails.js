@@ -1,34 +1,44 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState  } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import userImg from '../../assets/user.jpg'
+import PersonReview from './PersonReview';
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
 
 const ViewDetails = () => {
   const { user } = useContext(AuthContext);
   const { _id, services, image_url, details, price, rating } = useLoaderData();
+  const [reviews, setReviews] = useState([]);
+
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+        .then(res => res.json())
+        .then(data => setReviews(data))
+
+}, [user?.email]);
 
 
   const handlePlaceOrder = event => {
     event.preventDefault();
     const form = event.target;
-   
+
     const email = user?.email || 'unregistered';
-   
+
     const message = form.message.value;
-    
+
 
     const order = {
-        service: _id,
-        serviceName: services,
-        userImg:user.photoURL,
-        
-        price,
-       
-        email,
+      service: _id,
+      serviceName: services,
+      userImg: user.photoURL,
 
-        
-       
-        message
+      price,
+
+      email,
+
+
+
+      message
 
 
     }
@@ -42,24 +52,24 @@ const ViewDetails = () => {
 
 
     fetch('http://localhost:5000/reviews', {
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
 
-        },
-        body:JSON.stringify(order)
+      },
+      body: JSON.stringify(order)
     })
-    .then(res => res.json())
-    .then(data => {
+      .then(res => res.json())
+      .then(data => {
         console.log(data)
-        if(data.acknowledged){
-            alert('Order placed successfully')
-            form.reset();
+        if (data.acknowledged) {
+          alert('Order placed successfully')
+          form.reset();
         }
-    })
-    .catch(error => console.error(error));
+      })
+      .catch(error => console.error(error));
 
-}
+  }
 
 
 
@@ -105,19 +115,13 @@ const ViewDetails = () => {
       <div className="card w-96 bg-base-100 shadow-xl text-center justify-end">
         <div className="card-body">
 
-          <p className='text-2xl text-green-600'>what my clients saying about</p>
-          <div className="rating">
-            <input type="radio" name="rating-4" className="mask mask-star-2 bg-green-500" />
-            <input type="radio" name="rating-4" className="mask mask-star-2 bg-green-500" checked />
-            <input type="radio" name="rating-4" className="mask mask-star-2 bg-green-500" />
-
-          </div>
-          <div className="card-actions justify-end">
-            <button className="btn btn-square btn-sm">
-              <img className='rounded-full' src={userImg} alt='' />
-            </button>
-          </div>
-          <p>Our journey was friendly and courteous .Would definitely recommended  them both</p>
+          {
+            reviews.map(review =><PersonReview
+              key={review._id}
+              review={review}
+            
+            ></PersonReview>)
+          }
         </div>
       </div>
 
@@ -139,7 +143,7 @@ const ViewDetails = () => {
 
             user?.uid ?
 
-            <input type="submit" className="btn btn-primary mb-4  " value='Add your review' />
+              <input type="submit" className="btn btn-primary mb-4  " value='Add your review' />
               :
               <>
                 <Link className='font-semibold' to='/login'><button className="btn btn-outline btn-success mb-2">Before Login </button></Link>
@@ -149,7 +153,7 @@ const ViewDetails = () => {
 
 
           }
-         
+
         </form>
       </div>
 

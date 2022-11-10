@@ -5,6 +5,7 @@ import gIcon from '../../assets/google.jpg'
 import { AuthContext } from '../../Context/AuthProvider.js/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../hooks/useTitle';
+import swal from 'sweetalert';
 
 
 
@@ -33,6 +34,7 @@ const Register = () => {
                 form.reset();
                 console.log(user);
                 navigate(from, {replace:true});
+                swal("Good job!", "Google login complete!", "success");
             })
             .catch(error => {
                 console.error(error);
@@ -49,6 +51,7 @@ const Register = () => {
                 const user = result.user;
                 console.log(user);
                 navigate(from, {replace:true});
+                swal("Good job!", "Google login complete!", "success");
 
             })
             .catch(error => console.error(error))
